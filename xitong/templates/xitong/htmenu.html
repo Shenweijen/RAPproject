@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Personal Information</title>
+</head>
+<body>
+
+{% if request.session.shenfen == 'Admin' %}
+
+    <ul class="side-menu">
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">Personal Information</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'loginAndRegist:adminindex' %}"><span>Personal Information</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">AdminManage</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'admin:tianjiaadmin' %}"><span>AddAdmin</span></a></li>
+                <li><a class="slide-item" href="{% url 'admin:adminguanli' %}"><span>AdminManage</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">UserManage</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'user:tianjiauser' %}"><span>AddUser</span></a></li>
+                <li><a class="slide-item" href="{% url 'user:userguanli' %}"><span>UserManage</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">RAPManage</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'repairman:tianjiarepairman' %}"><span>AddRAP</span></a></li>
+                <li><a class="slide-item" href="{% url 'repairman:repairmanguanli' %}"><span>RAPManage</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">MemberServiceManage</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'serviceorder:tianjiaserviceorder' %}"><span>AddMemberService</span></a>
+                </li>
+                <li><a class="slide-item" href="{% url 'serviceorder:serviceorderguanli' %}"><span>MemberServiceManage</span></a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">CarManage</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'car:tianjiacar' %}"><span>AddCar</span></a></li>
+                <li><a class="slide-item" href="{% url 'car:carguanli' %}"><span>CarManage</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">OrderManage</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'rescueorder:rescueorderguanli' %}"><span>OrderManage</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">EvaluationManage</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'ordereval:orderevalguanli' %}"><span>EvaluationManage</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">DateManage</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'schedule:scheduleguanli' %}"><span>DateManage</span></a></li>
+            </ul>
+        </li>
+
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">QuitSystem</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'loginAndRegist:tuichuxitong' %}"><span>QuitSystem</span></a></li>
+            </ul>
+        </li>
+
+    </ul>
+
+
+{% endif %}{% if request.session.shenfen == 'User' %}
+
+    <ul class="side-menu">
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">PersonalInformationCenter</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'loginAndRegist:userindex' %}"><span>PersonalInformationCenter</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">MyService</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'serviceorder:usertianjiaserviceorder' %}"><span>ServiceSubscription</span></a>
+                </li>
+                <li><a class="slide-item" href="{% url 'serviceorder:userserviceorderguanli' %}"><span>MyService</span></a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">CarManage</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'car:usertianjiacar' %}"><span>AddCar</span></a></li>
+                <li><a class="slide-item" href="{% url 'car:usercarguanli' %}"><span>CarManage</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">OrderManage</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'rescueorder:usertianjiarescueorder' %}"><span>CreateOrder</span></a></li>
+                <li><a class="slide-item" href="{% url 'rescueorder:userrescueorderguanli' %}"><span>MyOrder</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">EvaluationManage</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'ordereval:usertianjiaordereval' %}"><span>AddEvaluation</span></a></li>
+                <li><a class="slide-item" href="{% url 'ordereval:userorderevalguanli' %}"><span>EvaluationManage</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">QuitSystem</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'loginAndRegist:tuichuxitong' %}"><span>QuitSystem</span></a></li>
+            </ul>
+        </li>
+
+    </ul>
+
+
+{% endif %}{% if request.session.shenfen == 'RAP' %}
+
+    <ul class="side-menu">
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">Personal Information Center</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'loginAndRegist:repairmanindex' %}"><span>Persona lInformation Center</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">OrderCheck</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'rescueorder:rescueorderchakan' %}"><span>OrderCheck</span></a></li>
+                <li><a class="slide-item" href="{% url 'rescueorder:repairmanrescueorderchakan' %}"><span>MyOrder</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">DateManage</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'schedule:repairmantianjiaschedule' %}"><span>AddDate</span></a></li>
+                <li><a class="slide-item" href="{% url 'schedule:repairmanscheduleguanli' %}"><span>DateManage</span></a></li>
+            </ul>
+        </li>
+
+        <li class="slide">
+            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-desktop"></i><span
+                    class="side-menu__label">QuitSystem</span><i class="angle fa fa-angle-right"></i></a>
+            <ul class="slide-menu">
+                <li><a class="slide-item" href="{% url 'loginAndRegist:tuichuxitong' %}"><span>QuitSystem</span></a></li>
+            </ul>
+        </li>
+
+    </ul>
+
+
+{% endif %}
+
+
+</body>
+</html>
+
+

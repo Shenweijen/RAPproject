@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Change User</title>
+
+    <!--Favicon -->
+    <link rel="icon" href="/static/houtai/favicon.ico" type="image/x-icon"/>
+
+    <!--Bootstrap.min css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/bootstrap/css/bootstrap.min.css">
+
+    <!--Icons css-->
+    <link rel="stylesheet" href="/static/houtai/assets/css/icons.css">
+
+    <!--Style css-->
+    <link rel="stylesheet" href="/static/houtai/assets/css/style.css">
+
+    <!--mCustomScrollbar css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/scroll-bar/jquery.mCustomScrollbar.css">
+
+    <!--Sidemenu css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/toggle-menu/sidemenu.css">
+
+    <!--Morris css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/morris/morris.css">
+    <script src="/static/houtai/assets/js/jquery.min.js"></script>
+</head>
+
+<body class="app ">
+
+<div id="spinner"></div>
+
+<div id="app">
+    <div class="main-wrapper">
+        <nav class="navbar navbar-expand-lg main-navbar">
+            <a onclick="kaiguan()"><i class="fa fa-bars"></i></a> <a
+                class="header-brand" href="#">Roadside Assistance Professional</a>
+        </nav>
+
+        <aside class="app-sidebar">
+            {% include "xitong/htmenu.html" %}
+        </aside>
+
+        <script>
+            function kaiguan() {
+                $("body").toggleClass("sidenav-toggled");
+            }
+        </script>
+
+        <div class="app-content">
+            <section class="section">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">ChangeUser</a></li>
+                </ol>
+
+                <div class="row">
+                    <div class="col-lg-12 col-xl-6 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>ChangeUser</h4>
+                            </div>
+                            <div class="card-body">
+                                <form class="form-horizontal" action="{% url 'user:xiugaiuseract' %}" method="post"
+                                      enctype="multipart/form-data">
+
+                                    <input style='display:none;' name='id' value="{{ user.id }}">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Name</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义姓名input输入框，并从request中取值user.name赋值  -->
+
+                                            <input name="name" value="{{ user.name }}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">UserName</label>
+                                        <div class="col-sm-12">
+                                            <input readonly value="{{ user.username }}" name="username"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Password</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义密码input输入框，并从request中取值user.password赋值  -->
+
+                                            <input name="password" value="{{ user.password }}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">DateofBirth</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义出生日期时间输入框  -->
+
+                                            <input type="date" name="birthday" value="{{ user.birthday }}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Sex</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义性别下拉框 -->
+
+                                            <select id='sex' onchange="男change(this)" name="sex" class="form-control">
+                                                <option>male</option>
+                                                <option>female</option>
+                                                <!---    循环输出用户的性别属性   ---->
+                                            </select>
+                                            <script>
+
+
+                                                $("#sex").val("{{ user.sex }}")</script>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Email</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义邮箱input输入框，并从request中取值user.email赋值  -->
+
+                                            <input name="email" value="{{ user.email }}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Address</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义住址input输入框，并从request中取值user.homeaddress赋值  -->
+
+                                            <input name="homeaddress" value="{{ user.homeaddress }}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">EmerContact</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义紧急联系人input输入框，并从request中取值user.emercontact赋值  -->
+
+                                            <input name="emercontact" value="{{ user.emercontact }}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">BankCard</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义银行卡input输入框，并从request中取值user.bankcard赋值  -->
+
+                                            <input name="bankcard" value="{{ user.bankcard }}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Payslip</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义Payslipinput输入框，并从request中取值user.payslip赋值  -->
+
+                                            <input name="payslip" value="{{ user.payslip }}" class="form-control">
+                                        </div>
+                                    </div>
+
+
+                                    <button qw-c="operationbutton" type="submit" class="btn btn-primary mt-1 mb-0">Change
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+        <footer class="main-footer">
+            <div class="text-center">
+                Roadside Assistance Professional
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+<!--Jquery.min js-->
+<script src="/static/houtai/assets/js/jquery.min.js"></script>
+
+<!--popper js-->
+<script src="/static/houtai/assets/js/popper.js"></script>
+
+<!--Tooltip js-->
+<script src="/static/houtai/assets/js/tooltip.js"></script>
+
+<!--Bootstrap.min js-->
+<script src="/static/houtai/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<!--Jquery.nicescroll.min js-->
+<script src="/static/houtai/assets/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+
+<!--Scroll-up-bar.min js-->
+<script src="/static/houtai/assets/plugins/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+
+<!--mCustomScrollbar js-->
+<script src="/static/houtai/assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!--Sidemenu js-->
+<script src="/static/houtai/assets/plugins/toggle-menu/sidemenu.js"></script>
+
+<!--Scripts js-->
+<script src="/static/houtai/assets/js/scripts.js"></script>
+<script>
+    if ("") {
+        alert("");
+    }
+</script>
+</body>
+</html>
+

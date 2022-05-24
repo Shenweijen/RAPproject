@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Change Customer Service</title>
+
+    <!--Favicon -->
+    <link rel="icon" href="/static/houtai/favicon.ico" type="image/x-icon"/>
+
+    <!--Bootstrap.min css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/bootstrap/css/bootstrap.min.css">
+
+    <!--Icons css-->
+    <link rel="stylesheet" href="/static/houtai/assets/css/icons.css">
+
+    <!--Style css-->
+    <link rel="stylesheet" href="/static/houtai/assets/css/style.css">
+
+    <!--mCustomScrollbar css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/scroll-bar/jquery.mCustomScrollbar.css">
+
+    <!--Sidemenu css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/toggle-menu/sidemenu.css">
+
+    <!--Morris css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/morris/morris.css">
+    <script src="/static/houtai/assets/js/jquery.min.js"></script>
+</head>
+
+<body class="app ">
+
+<div id="spinner"></div>
+
+<div id="app">
+    <div class="main-wrapper">
+        <nav class="navbar navbar-expand-lg main-navbar">
+            <a onclick="kaiguan()"><i class="fa fa-bars"></i></a> <a
+                class="header-brand" href="#">Roadside Assistance Professional</a>
+        </nav>
+
+        <aside class="app-sidebar">
+            {% include "xitong/htmenu.html" %}
+        </aside>
+
+        <script>
+            function kaiguan() {
+                $("body").toggleClass("sidenav-toggled");
+            }
+        </script>
+
+        <div class="app-content">
+            <section class="section">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">ChangeCustomerService</a></li>
+                </ol>
+
+                <div class="row">
+                    <div class="col-lg-12 col-xl-6 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>ChangeCustomerService</h4>
+                            </div>
+                            <div class="card-body">
+                                <form class="form-horizontal" action="{% url 'serviceorder:xiugaiserviceorderact' %}"
+                                      method="post" enctype="multipart/form-data">
+
+                                    <input style='display:none;' name='id' value="{{ serviceorder.id }}">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">User</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义用户下拉框 -->
+
+                                            <select id='user' onchange="userchange(this)" name="user"
+                                                    class="form-control">
+                                                <!---    循环输出会员服务的用户属性   ---->
+
+                                                {% for user in userall %}
+                                                    <option value='{{ user.name }}'>{{ user.name }}</option>
+
+                                                {% endfor %}                                                </select>
+                                            <script>
+
+                                                $("#user").val("{{ serviceorder.user }}")<!-- 定义userchange方法，当user改变时执行 -->
+
+                                                function userchange(select) {
+
+                                                    <!-- 将userid"的值改变为与 user项数相同的值，即user为第一项则userid为第一项-->
+
+                                                    $("#userid").val($("#userid option:eq(" + select.selectedIndex + ")").val());
+                                                }
+
+                                                <!-- 定义GetQueryString方法，该方法目的为获取地址栏中的参数 -->
+
+                                                function GetQueryString(name) {
+
+                                                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+
+                                                    var r = window.location.search.substr(1).match(reg);
+
+                                                    if (r != null) return (r[2]);
+
+                                                    return null;
+
+                                                }
+
+
+                                                <!-- 若地址栏中存在userid，使用GetQueryString方法获取该值 -->
+
+                                                var userid = GetQueryString("userid");
+
+                                                <!-- 如果userid不等于null -->
+
+                                                if (userid != null) {
+
+                                                    <!-- 将地址栏中的 userid值赋值给id为userid的项-->
+
+                                                    $("#userid").val(userid);
+
+                                                    <!-- 获取到id为userid的项-->
+
+                                                    var sel = document.getElementById("userid");
+
+                                                    <!-- 获取到sel当前的选择项-->
+
+                                                    var useridselectedindex = sel.selectedIndex;
+
+                                                    <!-- 将id为user赋值为与userid相同的项数的值，即当前userid项目为第一项时，user项为第一项 -->
+
+                                                    $("#user").val($("#user option:eq(" + useridselectedindex + ")").val());
+
+                                                }                                                         </script>
+                                        </div>
+                                    </div> <!-- 设置display为none,设置为不可见 -->
+
+                                    <div style='display:none;' class="form-group">
+                                        <label class="col-sm-12 control-label">UserID</label>
+                                        <!-- 设置display为none,设置为不可见 -->
+
+                                        <div style='display:none;' class="col-sm-12">
+                                            <!-- 定义用户id下拉框 -->
+
+                                            <select id='userid' onchange="userchange(this)" name="userid"
+                                                    class="form-control">
+                                                <!---    循环输出会员服务的用户id属性   ---->
+
+                                                {% for user in userall %}
+                                                    <option value='{{ user.id }}'>{{ user.id }}</option>
+
+                                                {% endfor %}                                                </select>
+                                            <script>
+
+                                                $("#userid").val("{{ serviceorder.userid }}")<!-- 定义userchange方法，当user改变时执行 -->
+
+                                                function userchange(select) {
+
+                                                    <!-- 将userid"的值改变为与 user项数相同的值，即user为第一项则userid为第一项-->
+
+                                                    $("#userid").val($("#userid option:eq(" + select.selectedIndex + ")").val());
+                                                }
+
+                                                <!-- 定义GetQueryString方法，该方法目的为获取地址栏中的参数 -->
+
+                                                function GetQueryString(name) {
+
+                                                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+
+                                                    var r = window.location.search.substr(1).match(reg);
+
+                                                    if (r != null) return (r[2]);
+
+                                                    return null;
+
+                                                }
+
+
+                                                <!-- 若地址栏中存在userid，使用GetQueryString方法获取该值 -->
+
+                                                var userid = GetQueryString("userid");
+
+                                                <!-- 如果userid不等于null -->
+
+                                                if (userid != null) {
+
+                                                    <!-- 将地址栏中的 userid值赋值给id为userid的项-->
+
+                                                    $("#userid").val(userid);
+
+                                                    <!-- 获取到id为userid的项-->
+
+                                                    var sel = document.getElementById("userid");
+
+                                                    <!-- 获取到sel当前的选择项-->
+
+                                                    var useridselectedindex = sel.selectedIndex;
+
+                                                    <!-- 将id为user赋值为与userid相同的项数的值，即当前userid项目为第一项时，user项为第一项 -->
+
+                                                    $("#user").val($("#user option:eq(" + useridselectedindex + ")").val());
+
+                                                }                                                         </script>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Price</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义价格数字输入框  -->
+
+                                            <input type="number" name="price" value="{{ serviceorder.price }}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Sub-State</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义订阅状态下拉框 -->
+
+                                            <select id='substate' onchange="未订阅change(this)" name="substate"
+                                                    class="form-control">
+                                                <option>未订阅</option>
+                                                <option>已订阅</option>
+                                                <!---    循环输出会员服务的订阅状态属性   ---->
+                                            </select>
+                                            <script>
+
+
+                                                $("#substate").val("{{ serviceorder.substate }}")</script>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">ChargeType</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义收费方式下拉框 -->
+
+                                            <select id='chargetype' onchange="按次收费change(this)" name="chargetype"
+                                                    class="form-control">
+                                                <option>Times</option>
+                                                <option>Annual</option>
+                                                <option>Monthly</option>
+                                                <!---    循环输出会员服务的收费方式属性   ---->
+                                            </select>
+                                            <script>
+
+
+                                                $("#chargetype").val("{{ serviceorder.chargetype }}")</script>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">PayType</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义支付方式下拉框 -->
+
+                                            <select id='paytype' onchange="银行卡change(this)" name="paytype"
+                                                    class="form-control">
+                                                <option>BankCard</option>
+                                                <option>paypal</option>
+                                                <!---    循环输出会员服务的支付方式属性   ---->
+                                            </select>
+                                            <script>
+
+
+                                                $("#paytype").val("{{ serviceorder.paytype }}")</script>
+
+                                        </div>
+                                    </div>
+
+
+                                    <button qw-c="operationbutton" type="submit" class="btn btn-primary mt-1 mb-0">Change
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+        <footer class="main-footer">
+            <div class="text-center">
+                Roadside Assistance Professional
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+<!--Jquery.min js-->
+<script src="/static/houtai/assets/js/jquery.min.js"></script>
+
+<!--popper js-->
+<script src="/static/houtai/assets/js/popper.js"></script>
+
+<!--Tooltip js-->
+<script src="/static/houtai/assets/js/tooltip.js"></script>
+
+<!--Bootstrap.min js-->
+<script src="/static/houtai/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<!--Jquery.nicescroll.min js-->
+<script src="/static/houtai/assets/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+
+<!--Scroll-up-bar.min js-->
+<script src="/static/houtai/assets/plugins/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+
+<!--mCustomScrollbar js-->
+<script src="/static/houtai/assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!--Sidemenu js-->
+<script src="/static/houtai/assets/plugins/toggle-menu/sidemenu.js"></script>
+
+<!--Scripts js-->
+<script src="/static/houtai/assets/js/scripts.js"></script>
+<script>
+    if ("") {
+        alert("");
+    }
+</script>
+</body>
+</html>
+

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Change Order</title>
+
+    <!--Favicon -->
+    <link rel="icon" href="/static/houtai/favicon.ico" type="image/x-icon"/>
+
+    <!--Bootstrap.min css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/bootstrap/css/bootstrap.min.css">
+
+    <!--Icons css-->
+    <link rel="stylesheet" href="/static/houtai/assets/css/icons.css">
+
+    <!--Style css-->
+    <link rel="stylesheet" href="/static/houtai/assets/css/style.css">
+
+    <!--mCustomScrollbar css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/scroll-bar/jquery.mCustomScrollbar.css">
+
+    <!--Sidemenu css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/toggle-menu/sidemenu.css">
+
+    <!--Morris css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/morris/morris.css">
+    <script src="/static/houtai/assets/js/jquery.min.js"></script>
+</head>
+
+<body class="app ">
+
+<div id="spinner"></div>
+
+<div id="app">
+    <div class="main-wrapper">
+        <nav class="navbar navbar-expand-lg main-navbar">
+            <a onclick="kaiguan()"><i class="fa fa-bars"></i></a> <a
+                class="header-brand" href="#">Roadside Assistance Professional</a>
+        </nav>
+
+        <aside class="app-sidebar">
+            {% include "xitong/htmenu.html" %}
+        </aside>
+
+        <script>
+            function kaiguan() {
+                $("body").toggleClass("sidenav-toggled");
+            }
+        </script>
+
+        <div class="app-content">
+            <section class="section">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">ChangeOrder</a></li>
+                </ol>
+
+                <div class="row">
+                    <div class="col-lg-12 col-xl-6 col-md-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>ChangeOrder</h4>
+                            </div>
+                            <div class="card-body">
+                                <form class="form-horizontal" action="{% url 'rescueorder:userxiugairescueorderact' %}"
+                                      method="post" enctype="multipart/form-data">
+
+                                    <input name='id' style='display:none;' value="{{ rescueorder.id }}">
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">OrderNumber</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义编号input输入框，并从request中取值rescueorder.ordernumber赋值  -->
+
+                                            <input name="ordernumber" value="{{ rescueorder.ordernumber }}"
+                                                   class="form-control">
+                                        </div>
+                                    </div> <!-- 设置display为none,设置为不可见 -->
+
+                                    <div style='display:none;' class="form-group">
+                                        <label class="col-sm-12 control-label">Name</label>
+                                        <!-- 设置display为none,设置为不可见 -->
+
+                                        <div style='display:none;' class="col-sm-12">
+                                            <!-- 定义user输入框 -->
+
+                                            <input value="{{ request.session.name }}" name="user" class="form-control">
+                                        </div>
+                                    </div> <!-- 设置display为none,设置为不可见 -->
+
+                                    <div style='display:none;' class="form-group">
+                                        <label class="col-sm-12 control-label">UserID</label>
+                                        <!-- 设置display为none,设置为不可见 -->
+
+                                        <div style='display:none;' class="col-sm-12">
+                                            <!-- 定义userid输入框 -->
+
+                                            <input value="{{ request.session.id }}" name="userid" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Car</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义车辆下拉框 -->
+
+                                            <select id='car' onchange="carchange(this)" name="car" class="form-control">
+                                                <!---    循环输出订单的车辆属性   ---->
+
+                                                {% for car in carall %}
+                                                    <option value='{{ car.carnumber }}'>{{ car.carnumber }}</option>
+
+                                                {% endfor %}                                                </select>
+                                            <script>
+
+                                                $("#car").val("{{ rescueorder.car }}")<!-- 定义carchange方法，当car改变时执行 -->
+
+                                                function carchange(select) {
+
+                                                    <!-- 将carid"的值改变为与 car项数相同的值，即car为第一项则carid为第一项-->
+
+                                                    $("#carid").val($("#carid option:eq(" + select.selectedIndex + ")").val());
+                                                }
+
+                                                <!-- 定义GetQueryString方法，该方法目的为获取地址栏中的参数 -->
+
+                                                function GetQueryString(name) {
+
+                                                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+
+                                                    var r = window.location.search.substr(1).match(reg);
+
+                                                    if (r != null) return (r[2]);
+
+                                                    return null;
+
+                                                }
+
+
+                                                <!-- 若地址栏中存在carid，使用GetQueryString方法获取该值 -->
+
+                                                var carid = GetQueryString("carid");
+
+                                                <!-- 如果carid不等于null -->
+
+                                                if (carid != null) {
+
+                                                    <!-- 将地址栏中的 carid值赋值给id为carid的项-->
+
+                                                    $("#carid").val(carid);
+
+                                                    <!-- 获取到id为carid的项-->
+
+                                                    var sel = document.getElementById("carid");
+
+                                                    <!-- 获取到sel当前的选择项-->
+
+                                                    var caridselectedindex = sel.selectedIndex;
+
+                                                    <!-- 将id为car赋值为与carid相同的项数的值，即当前carid项目为第一项时，car项为第一项 -->
+
+                                                    $("#car").val($("#car option:eq(" + caridselectedindex + ")").val());
+
+                                                }                                                         </script>
+                                        </div>
+                                    </div> <!-- 设置display为none,设置为不可见 -->
+
+                                    <div style='display:none;' class="form-group">
+                                        <label class="col-sm-12 control-label">CarID</label>
+                                        <!-- 设置display为none,设置为不可见 -->
+
+                                        <div style='display:none;' class="col-sm-12">
+                                            <!-- 定义车辆id下拉框 -->
+
+                                            <select id='carid' onchange="carchange(this)" name="carid"
+                                                    class="form-control">
+                                                <!---    循环输出订单的车辆id属性   ---->
+
+                                                {% for car in carall %}
+                                                    <option value='{{ car.id }}'>{{ car.id }}</option>
+
+                                                {% endfor %}                                                </select>
+                                            <script>
+
+                                                $("#carid").val("{{ rescueorder.carid }}")<!-- 定义carchange方法，当car改变时执行 -->
+
+                                                function carchange(select) {
+
+                                                    <!-- 将carid"的值改变为与 car项数相同的值，即car为第一项则carid为第一项-->
+
+                                                    $("#carid").val($("#carid option:eq(" + select.selectedIndex + ")").val());
+                                                }
+
+                                                <!-- 定义GetQueryString方法，该方法目的为获取地址栏中的参数 -->
+
+                                                function GetQueryString(name) {
+
+                                                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+
+                                                    var r = window.location.search.substr(1).match(reg);
+
+                                                    if (r != null) return (r[2]);
+
+                                                    return null;
+
+                                                }
+
+
+                                                <!-- 若地址栏中存在carid，使用GetQueryString方法获取该值 -->
+
+                                                var carid = GetQueryString("carid");
+
+                                                <!-- 如果carid不等于null -->
+
+                                                if (carid != null) {
+
+                                                    <!-- 将地址栏中的 carid值赋值给id为carid的项-->
+
+                                                    $("#carid").val(carid);
+
+                                                    <!-- 获取到id为carid的项-->
+
+                                                    var sel = document.getElementById("carid");
+
+                                                    <!-- 获取到sel当前的选择项-->
+
+                                                    var caridselectedindex = sel.selectedIndex;
+
+                                                    <!-- 将id为car赋值为与carid相同的项数的值，即当前carid项目为第一项时，car项为第一项 -->
+
+                                                    $("#car").val($("#car option:eq(" + caridselectedindex + ")").val());
+
+                                                }                                                         </script>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">ProblemType</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义问题类型input输入框，并从request中取值rescueorder.troubletype赋值  -->
+
+                                            <input name="troubletype" value="{{ rescueorder.troubletype }}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Location</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义救援地址input输入框，并从request中取值rescueorder.rescaddress赋值  -->
+
+                                            <input name="rescaddress" value="{{ rescueorder.rescaddress }}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Description</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义问题描述input输入框，并从request中取值rescueorder.troubledesc赋值  -->
+
+                                            <input name="troubledesc" value="{{ rescueorder.troubledesc }}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Reason</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义救援原因下拉框 -->
+
+                                            <select id='reason' onchange="缺电change(this)" name="reason"
+                                                    class="form-control">
+                                                <option>No Power</option>
+                                                <option>Broken Tire</option>
+                                                <option>Missing Key</option>
+                                                <option>Tow Car</option>
+                                                <option>Other</option>
+                                                <!---    循环输出订单的救援原因属性   ---->
+                                            </select>
+                                            <script>
+
+
+                                                $("#reason").val("{{ rescueorder.reason }}")</script>
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">State</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义状态input输入框，并从request中取值rescueorder.orderstate赋值  -->
+
+                                            <input name="orderstate" value="{{ rescueorder.orderstate }}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Pre-Cost</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义预估费用数字输入框  -->
+
+                                            <input type="number" name="precost" value="{{ rescueorder.precost }}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Pre-Time</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义预计救援时间时间输入框  -->
+
+                                            <input type="date" name="predate" value="{{ rescueorder.predate }}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">Duration</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义预计救援时长数字输入框  -->
+
+                                            <input type="number" name="duration" value="{{ rescueorder.duration }}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-12 control-label">RAP</label>
+                                        <div class="col-sm-12">
+                                            <!-- 定义维修工下拉框 -->
+
+                                            <select id='repairman' onchange="repairmanchange(this)" name="repairman"
+                                                    class="form-control">
+                                                <!---    循环输出订单的维修工属性   ---->
+
+                                                {% for repairman in repairmanall %}
+                                                    <option value='{{ repairman.name }}'>{{ repairman.name }}</option>
+
+                                                {% endfor %}                                                </select>
+                                            <script>
+
+                                                $("#repairman").val("{{ rescueorder.repairman }}")<!-- 定义repairmanchange方法，当repairman改变时执行 -->
+
+                                                function repairmanchange(select) {
+
+                                                    <!-- 将repairmanid"的值改变为与 repairman项数相同的值，即repairman为第一项则repairmanid为第一项-->
+
+                                                    $("#repairmanid").val($("#repairmanid option:eq(" + select.selectedIndex + ")").val());
+                                                }
+
+                                                <!-- 定义GetQueryString方法，该方法目的为获取地址栏中的参数 -->
+
+                                                function GetQueryString(name) {
+
+                                                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+
+                                                    var r = window.location.search.substr(1).match(reg);
+
+                                                    if (r != null) return (r[2]);
+
+                                                    return null;
+
+                                                }
+
+
+                                                <!-- 若地址栏中存在repairmanid，使用GetQueryString方法获取该值 -->
+
+                                                var repairmanid = GetQueryString("repairmanid");
+
+                                                <!-- 如果repairmanid不等于null -->
+
+                                                if (repairmanid != null) {
+
+                                                    <!-- 将地址栏中的 repairmanid值赋值给id为repairmanid的项-->
+
+                                                    $("#repairmanid").val(repairmanid);
+
+                                                    <!-- 获取到id为repairmanid的项-->
+
+                                                    var sel = document.getElementById("repairmanid");
+
+                                                    <!-- 获取到sel当前的选择项-->
+
+                                                    var repairmanidselectedindex = sel.selectedIndex;
+
+                                                    <!-- 将id为repairman赋值为与repairmanid相同的项数的值，即当前repairmanid项目为第一项时，repairman项为第一项 -->
+
+                                                    $("#repairman").val($("#repairman option:eq(" + repairmanidselectedindex + ")").val());
+
+                                                }                                                         </script>
+                                        </div>
+                                    </div> <!-- 设置display为none,设置为不可见 -->
+
+                                    <div style='display:none;' class="form-group">
+                                        <label class="col-sm-12 control-label">RAPID</label>
+                                        <!-- 设置display为none,设置为不可见 -->
+
+                                        <div style='display:none;' class="col-sm-12">
+                                            <!-- 定义维修工id下拉框 -->
+
+                                            <select id='repairmanid' onchange="repairmanchange(this)" name="repairmanid"
+                                                    class="form-control">
+                                                <!---    循环输出订单的维修工id属性   ---->
+
+                                                {% for repairman in repairmanall %}
+                                                    <option value='{{ repairman.id }}'>{{ repairman.id }}</option>
+
+                                                {% endfor %}                                                </select>
+                                            <script>
+
+                                                $("#repairmanid").val("{{ rescueorder.repairmanid }}")<!-- 定义repairmanchange方法，当repairman改变时执行 -->
+
+                                                function repairmanchange(select) {
+
+                                                    <!-- 将repairmanid"的值改变为与 repairman项数相同的值，即repairman为第一项则repairmanid为第一项-->
+
+                                                    $("#repairmanid").val($("#repairmanid option:eq(" + select.selectedIndex + ")").val());
+                                                }
+
+                                                <!-- 定义GetQueryString方法，该方法目的为获取地址栏中的参数 -->
+
+                                                function GetQueryString(name) {
+
+                                                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+
+                                                    var r = window.location.search.substr(1).match(reg);
+
+                                                    if (r != null) return (r[2]);
+
+                                                    return null;
+
+                                                }
+
+
+                                                <!-- 若地址栏中存在repairmanid，使用GetQueryString方法获取该值 -->
+
+                                                var repairmanid = GetQueryString("repairmanid");
+
+                                                <!-- 如果repairmanid不等于null -->
+
+                                                if (repairmanid != null) {
+
+                                                    <!-- 将地址栏中的 repairmanid值赋值给id为repairmanid的项-->
+
+                                                    $("#repairmanid").val(repairmanid);
+
+                                                    <!-- 获取到id为repairmanid的项-->
+
+                                                    var sel = document.getElementById("repairmanid");
+
+                                                    <!-- 获取到sel当前的选择项-->
+
+                                                    var repairmanidselectedindex = sel.selectedIndex;
+
+                                                    <!-- 将id为repairman赋值为与repairmanid相同的项数的值，即当前repairmanid项目为第一项时，repairman项为第一项 -->
+
+                                                    $("#repairman").val($("#repairman option:eq(" + repairmanidselectedindex + ")").val());
+
+                                                }                                                         </script>
+                                        </div>
+                                    </div>
+
+
+                                    <button qw-c="operationbutton" type="submit" class="btn btn-primary mt-1 mb-0">Change
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+        <footer class="main-footer">
+            <div class="text-center">
+                Roadside Assistance Professional
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+<!--Jquery.min js-->
+<script src="/static/houtai/assets/js/jquery.min.js"></script>
+
+<!--popper js-->
+<script src="/static/houtai/assets/js/popper.js"></script>
+
+<!--Tooltip js-->
+<script src="/static/houtai/assets/js/tooltip.js"></script>
+
+<!--Bootstrap.min js-->
+<script src="/static/houtai/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<!--Jquery.nicescroll.min js-->
+<script src="/static/houtai/assets/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+
+<!--Scroll-up-bar.min js-->
+<script src="/static/houtai/assets/plugins/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+
+<!--mCustomScrollbar js-->
+<script src="/static/houtai/assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!--Sidemenu js-->
+<script src="/static/houtai/assets/plugins/toggle-menu/sidemenu.js"></script>
+
+<!--Scripts js-->
+<script src="/static/houtai/assets/js/scripts.js"></script>
+<script>
+    if ("") {
+        alert("");
+    }
+</script>
+</body>
+</html>
+

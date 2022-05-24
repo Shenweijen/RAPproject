@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register</title>
+
+    <!--Favicon -->
+    <link rel="icon" href="/static/houtai/favicon.ico" type="image/x-icon"/>
+
+    <!--Bootstrap.min css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/bootstrap/css/bootstrap.min.css">
+
+    <!--Icons css-->
+    <link rel="stylesheet" href="/static/houtai/assets/css/icons.css">
+
+    <!--Style css-->
+    <link rel="stylesheet" href="/static/houtai/assets/css/style.css">
+
+    <!--mCustomScrollbar css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/scroll-bar/jquery.mCustomScrollbar.css">
+
+    <!--Sidemenu css-->
+    <link rel="stylesheet" href="/static/houtai/assets/plugins/toggle-menu/sidemenu.css">
+    <script src="/static/houtai/assets/js/jquery.min.js"></script>
+</head>
+
+<body class="bg-primary">
+<div id="app">
+    <section class="section section-2">
+        <div class="container" style="max-width: 600px;">
+            <div class="row">
+                <div class="single-page single-pageimage construction-bg cover-image "
+                     data-image-src="assets/img/news/img14.jpg">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="wrapper wrapper2">
+                                <form id="login" class="card-body" tabindex="500"
+                                      action="{% url 'loginAndRegist:registact' %}" method="post">
+                                    <h3>Register</h3>
+                                    <div class="mail">
+                                        <input type="text" name="username" placeholder="Enter Account" required>
+                                        <label>Account</label>
+                                    </div>
+                                    <div class="passwd">
+                                        <input type="password" name="password" placeholder="Enter Password" required>
+                                        <label>Password</label>
+                                    </div>
+                                    <div class="passwd"><input type="password" name="repassword" placeholder="Confirm Password"
+                                                               required><label>ConfirmPassword</label></div>
+                                    <div class="passwd">
+                                        <select name="shenfen" class="selip">
+                                            <option>User</option>
+                                            <option>RAP</option>
+                                        </select>
+                                        <label>Identity</label>
+                                    </div>
+                                    <div class="submit">
+                                        <button qw-c="operationbutton" class="btn btn-primary btn-block">Register</button>
+                                    </div>
+                                    <p class="mb-2">Have Account, Click <a href="{% url 'loginAndRegist:login' %}">Login</a></p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+
+    .selip {
+        height: 40px;
+        padding: 5px 15px;
+        width: 100%;
+        border: solid 1px #ececff;
+    }
+
+</style>
+
+<!--Jquery.min js-->
+<script src="/static/houtai/assets/js/jquery.min.js"></script>
+
+<!--popper js-->
+<script src="/static/houtai/assets/js/popper.js"></script>
+
+<!--Tooltip js-->
+<script src="/static/houtai/assets/js/tooltip.js"></script>
+
+<!--Bootstrap.min js-->
+<script src="/static/houtai/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<!--Jquery.nicescroll.min js-->
+<script src="/static/houtai/assets/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+
+<!--Scroll-up-bar.min js-->
+<script src="/static/houtai/assets/plugins/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
+
+<script src="/static/houtai/assets/js/moment.min.js"></script>
+
+<!--mCustomScrollbar js-->
+<script src="/static/houtai/assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+<!--Sidemenu js-->
+<script src="/static/houtai/assets/plugins/toggle-menu/sidemenu.js"></script>
+
+<!--Scripts js-->
+<script src="/static/houtai/assets/js/scripts.js"></script>
+<script>
+    if ("") {
+        alert("");
+    }
+</script>
+</body>
+</html>
+
